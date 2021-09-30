@@ -38,8 +38,30 @@ axios.get('https://api.github.com/users/Alex-Hoskins')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+'https://api.github.com/users/tetondan',
+'https://api.github.com/users/dustinmyers',
+'https://api.github.com/users/justsml',
+'https://api.github.com/users/luishrd',
+'https://api.github.com/users/bigknell'
+];
 
+
+function addFollowersArray(array){
+  for(let i = 0; i < array.length; i++){
+  axios.get(array[i])
+    .then(resp=>{
+      console.log(resp)
+      // take response and pass into function
+      const followers= person(resp);
+      // create variable equal to return
+      cards.appendChild(followers)
+      // Add to dom
+    })
+  }
+}
+
+addFollowersArray(followersArray);
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -59,6 +81,7 @@ const followersArray = [];
       </div>
     </div>
 */
+
 function person(object){
 
   const personDiv=document.createElement('div');
@@ -107,9 +130,17 @@ function person(object){
 
 /*
   List of LS Instructors Github username's:
-    tetondan
+    
     dustinmyers
     justsml
     luishrd
     bigknell
+
+
+'https://api.github.com/users/tetondan'
+'https://api.github.com/users/dustinmyers'
+'https://api.github.com/users/justsml'
+'https://api.github.com/users/luishrd'
+'https://api.github.com/users/bigknell'
+
 */
