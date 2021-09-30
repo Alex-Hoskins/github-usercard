@@ -1,9 +1,19 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const cards = document.querySelector('.cards')
+axios.get('https://api.github.com/users/Alex-Hoskins')
+  .then(resp=>{
+    console.log(resp)
+    // take response and pass into function
+    const alex= person(resp);
+    // create variable equal to return
+    cards.appendChild(alex)
+    // Add to dom
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +59,51 @@ const followersArray = [];
       </div>
     </div>
 */
+function person(object){
+
+  const personDiv=document.createElement('div');
+  const personPic=document.createElement('img');
+  const personInfo=document.createElement('div');
+  const personName=document.createElement('h3');
+  const personUserName=document.createElement('p');
+  const personLocation=document.createElement('p');
+  const personProfile=document.createElement('p');
+  const personAddress=document.createElement('a');
+  const personFollowers=document.createElement('p');
+  const personFollowing=document.createElement('p');
+  const personBio=document.createElement('p');
+
+  personDiv.classList.add('card');
+  personPic.src= object.data.avatar_url;
+  personInfo.classList.add('card-info');
+  personName.classList.add('name');
+  personName.textContent=`${object.data.name}`;
+  personUserName.classList.add('username');
+  personUserName.textContent=`${object.data.login}`;
+  personLocation.textContent=`Location: ${object.data.location}`;
+  personProfile.textContent='Profile:';
+  personAddress.href=object.data.html_url;
+  personAddress.textContent=`${object.data.html_url}`;
+  personFollowers.textContent=`Followers: ${object.data.followers}`;
+  personFollowing.textContent=`Following: ${object.data.following}`;
+  personBio.textContent= `Bio: ${object.data.bio}`;
+
+  personDiv.appendChild(personPic);
+  personDiv.appendChild(personInfo);
+  personInfo.appendChild(personName);
+  personInfo.appendChild(personUserName);
+  personInfo.appendChild(personLocation);
+  personInfo.appendChild(personProfile);
+  personInfo.appendChild(personFollowers);
+  personInfo.appendChild(personFollowing);
+  personInfo.appendChild(personBio);
+  personProfile.appendChild(personAddress);
+
+  return personDiv
+
+}
+
+
 
 /*
   List of LS Instructors Github username's:
